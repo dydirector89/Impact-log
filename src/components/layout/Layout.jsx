@@ -170,7 +170,7 @@ export default function Layout() {
                         "flex-1 transition-all duration-300 ease-in-out",
                         sidebarCollapsed ? "md:ml-16" : "md:ml-56"
                     )}>
-                        <main className="min-h-[calc(100vh-3rem)] p-4 sm:p-6 bg-gradient-to-br from-emerald-50/50 via-cyan-50/30 to-blue-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900">
+                        <main className="min-h-[calc(100vh-3rem)] p-4 sm:p-6 overflow-x-hidden bg-gradient-to-br from-emerald-50/50 via-cyan-50/30 to-blue-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900">
                             <Outlet />
                         </main>
                     </div>
