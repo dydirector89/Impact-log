@@ -81,8 +81,8 @@ export default function Leaderboard() {
                         key={option.value}
                         onClick={() => setPeriod(option.value)}
                         className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${period === option.value
-                                ? 'bg-background text-foreground shadow-sm'
-                                : 'text-muted-foreground hover:text-foreground'
+                            ? 'bg-background text-foreground shadow-sm'
+                            : 'text-muted-foreground hover:text-foreground'
                             }`}
                     >
                         {option.label}
@@ -92,8 +92,8 @@ export default function Leaderboard() {
 
             {/* Podium */}
             <Card className="glass-card overflow-visible">
-                <CardContent className="p-6">
-                    <div className="flex justify-center items-end gap-6 pt-8 pb-4">
+                <CardContent className="p-4 sm:p-6">
+                    <div className="flex justify-center items-end gap-3 sm:gap-6 pt-8 pb-4">
                         {podium.map((member, index) => {
                             const styles = getPodiumStyles(index);
                             return (

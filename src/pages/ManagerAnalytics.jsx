@@ -201,9 +201,9 @@ export default function ManagerAnalytics() {
                             <TableRow>
                                 <TableHead>Activity Type</TableHead>
                                 <TableHead className="text-center">Count</TableHead>
-                                <TableHead className="text-right">Total Quantity</TableHead>
+                                <TableHead className="text-right hidden sm:table-cell">Total Quantity</TableHead>
                                 <TableHead className="text-right">CO₂ Saved</TableHead>
-                                <TableHead className="text-right">Impact Score</TableHead>
+                                <TableHead className="text-right hidden sm:table-cell">Impact Score</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -227,7 +227,7 @@ export default function ManagerAnalytics() {
                                                 {data.count}
                                             </Badge>
                                         </TableCell>
-                                        <TableCell className="text-right text-sm">
+                                        <TableCell className="text-right text-sm hidden sm:table-cell">
                                             {data.totalQuantity.toFixed(1)} {activityType?.unit}
                                         </TableCell>
                                         <TableCell className="text-right">
@@ -235,7 +235,7 @@ export default function ManagerAnalytics() {
                                                 {data.totalCO2.toFixed(1)} kg
                                             </span>
                                         </TableCell>
-                                        <TableCell className="text-right">
+                                        <TableCell className="text-right hidden sm:table-cell">
                                             <span className="text-sm font-semibold text-violet-500">
                                                 {data.totalImpact.toFixed(0)} pts
                                             </span>

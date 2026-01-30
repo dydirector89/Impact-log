@@ -279,7 +279,7 @@ export default function ManagerChallenges() {
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead className="min-w-[200px]">Challenge</TableHead>
+                                        <TableHead>Challenge</TableHead>
                                         <TableHead className="hidden md:table-cell">Type</TableHead>
                                         <TableHead className="text-center hidden md:table-cell">Progress</TableHead>
                                         <TableHead className="text-center hidden sm:table-cell">Participants</TableHead>
