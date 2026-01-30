@@ -128,7 +128,9 @@ DROP POLICY IF EXISTS "Users can insert own activities" ON activities;
 CREATE POLICY "Users can insert own activities" ON activities FOR INSERT WITH CHECK (auth.uid() = user_id);
 
 DROP POLICY IF EXISTS "Managers can update activities" ON activities;
-CREATE POLICY "Managers can update activities" ON activities FOR UPDATE USING (true);
+CREATE POLICY "Managers can update activities" ON activities FOR UPDATE USING (
+  (SELECT role FROM profiles WHERE id = auth.uid()) IN ('manager', 'admin')
+);
 
 -- Badges policies
 DROP POLICY IF EXISTS "Anyone can view badges" ON badges;
@@ -145,13 +147,19 @@ DROP POLICY IF EXISTS "Anyone can view challenges" ON challenges;
 CREATE POLICY "Anyone can view challenges" ON challenges FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Managers can insert challenges" ON challenges;
-CREATE POLICY "Managers can insert challenges" ON challenges FOR INSERT WITH CHECK (true);
+CREATE POLICY "Managers can insert challenges" ON challenges FOR INSERT WITH CHECK (
+  (SELECT role FROM profiles WHERE id = auth.uid()) IN ('manager', 'admin')
+);
 
 DROP POLICY IF EXISTS "Managers can update challenges" ON challenges;
-CREATE POLICY "Managers can update challenges" ON challenges FOR UPDATE USING (true);
+CREATE POLICY "Managers can update challenges" ON challenges FOR UPDATE USING (
+  (SELECT role FROM profiles WHERE id = auth.uid()) IN ('manager', 'admin')
+);
 
 DROP POLICY IF EXISTS "Managers can delete challenges" ON challenges;
-CREATE POLICY "Managers can delete challenges" ON challenges FOR DELETE USING (true);
+CREATE POLICY "Managers can delete challenges" ON challenges FOR DELETE USING (
+  (SELECT role FROM profiles WHERE id = auth.uid()) IN ('manager', 'admin')
+);
 
 -- Challenge participants policies
 DROP POLICY IF EXISTS "Anyone can view participants" ON challenge_participants;
@@ -167,8 +175,10 @@ CREATE POLICY "Users can view own notifications" ON notifications FOR SELECT USI
 DROP POLICY IF EXISTS "Users can update own notifications" ON notifications;
 CREATE POLICY "Users can update own notifications" ON notifications FOR UPDATE USING (auth.uid() = user_id);
 
-DROP POLICY IF EXISTS "Anyone can insert notifications" ON notifications;
-CREATE POLICY "Anyone can insert notifications" ON notifications FOR INSERT WITH CHECK (true);
+CREATE POLICY "Managers can insert notifications" ON notifications FOR INSERT WITH CHECK (
+  (auth.uid() = user_id) OR 
+  ((SELECT role FROM profiles WHERE id = auth.uid()) IN ('manager', 'admin'))
+);
 
 -- ===========================================
 -- STEP 4: Create Profile Trigger for New Users

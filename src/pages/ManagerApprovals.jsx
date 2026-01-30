@@ -88,8 +88,8 @@ export default function ManagerApprovals() {
                                     key={option.value}
                                     onClick={() => setStatusFilter(option.value)}
                                     className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${statusFilter === option.value
-                                            ? 'bg-background text-foreground shadow-sm'
-                                            : 'text-muted-foreground hover:text-foreground'
+                                        ? 'bg-background text-foreground shadow-sm'
+                                        : 'text-muted-foreground hover:text-foreground'
                                         }`}
                                 >
                                     {option.label}
@@ -119,73 +119,82 @@ export default function ManagerApprovals() {
                             {filteredActivities.map((activity) => (
                                 <div
                                     key={activity.id}
-                                    className="flex items-center gap-4 p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+                                    className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 hover:bg-muted/50 cursor-pointer transition-colors"
                                     onClick={() => setSelectedActivity(activity)}
                                 >
-                                    <Avatar className="h-11 w-11">
-                                        <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-teal-500 text-white">
-                                            {activity.user_name?.charAt(0) || 'U'}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                    <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <span className="font-medium">{activity.user_name}</span>
-                                            <Badge
-                                                variant="secondary"
-                                                className="text-xs"
-                                                style={{
-                                                    backgroundColor: `${ACTIVITY_TYPES[activity.activity_type]?.color}20`,
-                                                    color: ACTIVITY_TYPES[activity.activity_type]?.color,
-                                                }}
-                                            >
-                                                {ACTIVITY_TYPES[activity.activity_type]?.label}
-                                            </Badge>
-                                            {activity.photo_url && (
-                                                <Badge variant="outline" className="text-xs gap-1">
-                                                    <Camera className="w-3 h-3" />
-                                                    Photo
-                                                </Badge>
-                                            )}
-                                        </div>
-                                        <p className="text-sm text-muted-foreground truncate mb-1">
-                                            {activity.description}
-                                        </p>
-                                        <p className="text-xs text-muted-foreground">
-                                            {new Date(activity.activity_date).toLocaleDateString('en-US', {
-                                                month: 'short',
-                                                day: 'numeric',
-                                                year: 'numeric',
-                                            })}
-                                            {' • '}
-                                            {activity.quantity || activity.hours} {ACTIVITY_TYPES[activity.activity_type]?.unit}
-                                            {' • '}
-                                            {(activity.co2_saved || 0).toFixed(2)} kg CO₂
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <StatusChip status={activity.status} />
-                                        {activity.status === 'pending' && (
-                                            <div className="flex gap-2">
-                                                <Button
-                                                    size="sm"
-                                                    variant="default"
-                                                    className="bg-emerald-500 hover:bg-emerald-600"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        handleApprove(activity.id, '');
+                                    <div className="flex items-start gap-4 flex-1">
+                                        <Avatar className="h-10 w-10 sm:h-11 sm:w-11">
+                                            <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-teal-500 text-white">
+                                                {activity.user_name?.charAt(0) || 'U'}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex flex-wrap items-center gap-2 mb-1">
+                                                <span className="font-medium">{activity.user_name}</span>
+                                                <Badge
+                                                    variant="secondary"
+                                                    className="text-xs"
+                                                    style={{
+                                                        backgroundColor: `${ACTIVITY_TYPES[activity.activity_type]?.color}20`,
+                                                        color: ACTIVITY_TYPES[activity.activity_type]?.color,
                                                     }}
                                                 >
-                                                    Approve
-                                                </Button>
+                                                    {ACTIVITY_TYPES[activity.activity_type]?.label}
+                                                </Badge>
+                                                {activity.photo_url && (
+                                                    <Badge variant="outline" className="text-xs gap-1 hidden xs:inline-flex">
+                                                        <Camera className="w-3 h-3" />
+                                                        Photo
+                                                    </Badge>
+                                                )}
+                                            </div>
+                                            <p className="text-sm text-muted-foreground line-clamp-2 sm:truncate mb-1">
+                                                {activity.description}
+                                            </p>
+                                            <p className="text-xs text-muted-foreground flex flex-wrap gap-x-2">
+                                                <span>
+                                                    {new Date(activity.activity_date).toLocaleDateString('en-US', {
+                                                        month: 'short',
+                                                        day: 'numeric',
+                                                    })}
+                                                </span>
+                                                <span className="text-muted-foreground/50">•</span>
+                                                <span>
+                                                    {activity.quantity || activity.hours} {ACTIVITY_TYPES[activity.activity_type]?.unit}
+                                                </span>
+                                                <span className="text-muted-foreground/50">•</span>
+                                                <span className="font-medium text-foreground">
+                                                    {(activity.co2_saved || 0).toFixed(2)} kg CO₂
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto mt-2 sm:mt-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-border">
+                                        <StatusChip status={activity.status} />
+                                        {activity.status === 'pending' && (
+                                            <div className="flex gap-2 flex-1 sm:flex-none justify-end">
                                                 <Button
                                                     size="sm"
                                                     variant="outline"
+                                                    className="flex-1 sm:flex-none"
                                                     onClick={(e) => {
                                                         e.stopPropagation();
                                                         setSelectedActivity(activity);
                                                     }}
                                                 >
                                                     Review
+                                                </Button>
+                                                <Button
+                                                    size="sm"
+                                                    variant="default"
+                                                    className="bg-emerald-500 hover:bg-emerald-600 flex-1 sm:flex-none"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleApprove(activity.id, '');
+                                                    }}
+                                                >
+                                                    Approve
                                                 </Button>
                                             </div>
                                         )}

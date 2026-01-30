@@ -275,15 +275,15 @@ export default function ManagerChallenges() {
                             </Button>
                         </div>
                     ) : (
-                        <div className="overflow-x-auto">
+                        <div className="rounded-md border">
                             <Table>
                                 <TableHeader>
                                     <TableRow>
                                         <TableHead className="min-w-[200px]">Challenge</TableHead>
-                                        <TableHead>Type</TableHead>
-                                        <TableHead className="text-center">Progress</TableHead>
-                                        <TableHead className="text-center">Participants</TableHead>
-                                        <TableHead className="text-center">Points</TableHead>
+                                        <TableHead className="hidden md:table-cell">Type</TableHead>
+                                        <TableHead className="text-center hidden md:table-cell">Progress</TableHead>
+                                        <TableHead className="text-center hidden sm:table-cell">Participants</TableHead>
+                                        <TableHead className="text-center hidden sm:table-cell">Points</TableHead>
                                         <TableHead>Status</TableHead>
                                         <TableHead className="text-right">Actions</TableHead>
                                     </TableRow>
@@ -317,16 +317,27 @@ export default function ManagerChallenges() {
                                                             />
                                                         </div>
                                                         <div className="min-w-0">
-                                                            <p className="font-medium truncate max-w-[180px]">
+                                                            <p className="font-medium truncate max-w-[150px] sm:max-w-[180px]">
                                                                 {challenge.title}
                                                             </p>
                                                             <p className="text-xs text-muted-foreground">
                                                                 {formatDate(challenge.start_date)} - {formatDate(challenge.end_date)}
                                                             </p>
+                                                            {/* Mobile-only details */}
+                                                            <div className="flex items-center gap-2 mt-1 sm:hidden text-xs text-muted-foreground">
+                                                                <span className="flex items-center gap-1">
+                                                                    <Users className="w-3 h-3" />
+                                                                    {challenge.participants || 0}
+                                                                </span>
+                                                                <span>•</span>
+                                                                <span className="text-amber-600 font-medium">
+                                                                    +{challenge.points_reward} pts
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </TableCell>
-                                                <TableCell>
+                                                <TableCell className="hidden md:table-cell">
                                                     {activityType ? (
                                                         <Badge
                                                             variant="secondary"
@@ -342,7 +353,7 @@ export default function ManagerChallenges() {
                                                         <Badge variant="outline" className="text-xs">Any</Badge>
                                                     )}
                                                 </TableCell>
-                                                <TableCell>
+                                                <TableCell className="hidden md:table-cell">
                                                     <div className="w-24 mx-auto">
                                                         <div className="flex justify-between text-xs mb-1">
                                                             <span>{Math.round(progress.percentage)}%</span>
@@ -353,13 +364,13 @@ export default function ManagerChallenges() {
                                                         />
                                                     </div>
                                                 </TableCell>
-                                                <TableCell className="text-center">
+                                                <TableCell className="text-center hidden sm:table-cell">
                                                     <div className="flex items-center justify-center gap-1.5">
                                                         <Users className="w-4 h-4 text-muted-foreground" />
                                                         <span className="font-medium">{challenge.participants || 0}</span>
                                                     </div>
                                                 </TableCell>
-                                                <TableCell className="text-center">
+                                                <TableCell className="text-center hidden sm:table-cell">
                                                     <Badge variant="outline" className="text-amber-600 border-amber-300">
                                                         +{challenge.points_reward} pts
                                                     </Badge>
@@ -577,9 +588,9 @@ export default function ManagerChallenges() {
                                                             <Avatar className="h-10 w-10">
                                                                 <AvatarFallback
                                                                     className={`text-white font-medium ${index === 0 ? 'bg-amber-500' :
-                                                                            index === 1 ? 'bg-slate-400' :
-                                                                                index === 2 ? 'bg-orange-500' :
-                                                                                    'bg-primary'
+                                                                        index === 1 ? 'bg-slate-400' :
+                                                                            index === 2 ? 'bg-orange-500' :
+                                                                                'bg-primary'
                                                                         }`}
                                                                 >
                                                                     {participant.full_name?.charAt(0) || 'U'}
@@ -604,8 +615,8 @@ export default function ManagerChallenges() {
                                                                 <Progress
                                                                     value={participant.progress}
                                                                     className={`h-1.5 flex-1 ${participant.progress >= 100
-                                                                            ? '[&>div]:bg-emerald-500'
-                                                                            : ''
+                                                                        ? '[&>div]:bg-emerald-500'
+                                                                        : ''
                                                                         }`}
                                                                 />
                                                             </div>

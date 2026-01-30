@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { Eye, EyeOff, Copy, Leaf, Mail, RefreshCw } from 'lucide-react';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
+import { Eye, EyeOff, Copy, Leaf, Mail, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 
 export default function Login() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const { login, resendVerification, isDemoMode } = useAuth();
 
     const [email, setEmail] = useState('');
@@ -20,6 +21,9 @@ export default function Login() {
     const [needsVerification, setNeedsVerification] = useState(false);
     const [resendingVerification, setResendingVerification] = useState(false);
     const [verificationSent, setVerificationSent] = useState(false);
+
+    // Check for verified query param
+    const isVerified = searchParams.get('verified') === 'true';
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -87,7 +91,6 @@ export default function Login() {
             <Card className="max-w-md w-full relative z-10 shadow-2xl">
                 <CardContent className="p-8">
                     {/* Logo */}
-                    {/* Logo */}
                     <div className="flex flex-col items-center mb-8">
                         <div className="flex items-center gap-3 mb-2">
                             <div className="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center">
@@ -97,6 +100,20 @@ export default function Login() {
                         </div>
                         <p className="text-muted-foreground text-sm">Track your sustainability impact</p>
                     </div>
+
+                    {/* Email Verified Success Message */}
+                    {isVerified && (
+                        <div className="mb-6 p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-start gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="mt-0.5 bg-emerald-100 rounded-full p-1">
+                                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                            </div>
+                            <div>
+                                <p className="font-semibold text-emerald-900 text-base mb-1">Email Verified Successfully!</p>
+                                <p className="text-emerald-700">Your account has been confirmed. Please sign in below to continue to your dashboard.</p>
+                            </div>
+                        </div>
+                    )}
+
                     {/* Verification Message */}
                     {verificationSent && (
                         <div className="mb-4 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm flex items-start gap-2">

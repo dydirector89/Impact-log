@@ -251,10 +251,12 @@ export default function ManagerDashboard() {
                                     </Avatar>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 mb-0.5">
-                                            <span className="text-sm font-medium">{activity.user_name}</span>
+                                            <span className="text-sm font-medium truncate">{activity.user_name}</span>
+                                        </div>
+                                        <div className="flex items-center gap-1.5 flex-wrap">
                                             <Badge
                                                 variant="secondary"
-                                                className="text-[10px] px-1.5"
+                                                className="text-[10px] px-1.5 h-4"
                                                 style={{
                                                     backgroundColor: `${ACTIVITY_TYPES[activity.activity_type]?.color}20`,
                                                     color: ACTIVITY_TYPES[activity.activity_type]?.color,
@@ -262,23 +264,25 @@ export default function ManagerDashboard() {
                                             >
                                                 {ACTIVITY_TYPES[activity.activity_type]?.label}
                                             </Badge>
+                                            <span className="text-xs text-muted-foreground truncate max-w-[120px] sm:max-w-xs">
+                                                {activity.description}
+                                            </span>
                                         </div>
-                                        <p className="text-xs text-muted-foreground truncate">
-                                            {activity.description}
-                                        </p>
                                     </div>
                                     <div className="text-right shrink-0">
                                         <p className="text-sm font-medium text-primary">
-                                            {(activity.co2_saved || 0).toFixed(2)} kg CO₂
+                                            {Math.round(activity.co2_saved || 0)} kg
                                         </p>
-                                        <p className="text-xs text-muted-foreground">
-                                            {new Date(activity.activity_date).toLocaleDateString('en-US', {
+                                        <p className="text-[10px] text-muted-foreground hidden xs:block">
+                                            {new Date(activity.activity_date).toLocaleDateString(undefined, {
                                                 month: 'short',
                                                 day: 'numeric',
                                             })}
                                         </p>
                                     </div>
-                                    <StatusChip status="pending" />
+                                    <div className="hidden sm:block">
+                                        <StatusChip status="pending" size="sm" />
+                                    </div>
                                 </div>
                             ))}
                         </div>
