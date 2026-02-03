@@ -85,7 +85,7 @@ export default function ForecastWidget({
                         <Settings className="h-4 w-4" />
                     </Button>
                 )}
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                     <div className="flex items-center gap-2 mb-3">
                         <Flag className="h-4 w-4 opacity-90" />
                         <span className="text-xs font-medium uppercase tracking-wide opacity-90">
@@ -93,7 +93,7 @@ export default function ForecastWidget({
                         </span>
                     </div>
 
-                    <h3 className="text-xl font-bold mb-4 pr-8">{label}</h3>
+                    <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 pr-8">{label}</h3>
 
                     {/* Progress Section */}
                     <div className="mb-4">
@@ -114,11 +114,11 @@ export default function ForecastWidget({
                     {/* Stats Grid */}
                     <div className="grid grid-cols-2 gap-3 mb-4">
                         <div className="bg-white/10 rounded-lg p-3 text-center">
-                            <p className="text-xl font-bold">{daysRemaining}</p>
+                            <p className="text-lg sm:text-xl font-bold">{daysRemaining}</p>
                             <p className="text-xs opacity-80">Days left</p>
                         </div>
                         <div className="bg-white/10 rounded-lg p-3 text-center">
-                            <p className="text-xl font-bold">{remaining.toFixed(1)}</p>
+                            <p className="text-lg sm:text-xl font-bold">{remaining.toFixed(1)}</p>
                             <p className="text-xs opacity-80">{unit} to go</p>
                         </div>
                     </div>

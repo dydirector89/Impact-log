@@ -91,7 +91,7 @@ export default function ManagerDashboard() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Team Dashboard</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Team Dashboard</h1>
                     <p className="text-muted-foreground mt-1">
                         Manage approvals and track team performance
                     </p>
@@ -241,10 +241,10 @@ export default function ManagerDashboard() {
                             {pendingActivities.slice(0, 5).map((activity) => (
                                 <div
                                     key={activity.id}
-                                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted cursor-pointer transition-colors"
+                                    className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-muted cursor-pointer transition-colors"
                                     onClick={() => setSelectedActivity(activity)}
                                 >
-                                    <Avatar className="h-10 w-10">
+                                    <Avatar className="h-8 w-8 sm:h-10 sm:w-10 shrink-0">
                                         <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-teal-500 text-white">
                                             {activity.user_name?.charAt(0) || 'U'}
                                         </AvatarFallback>
@@ -264,7 +264,7 @@ export default function ManagerDashboard() {
                                             >
                                                 {ACTIVITY_TYPES[activity.activity_type]?.label}
                                             </Badge>
-                                            <span className="text-xs text-muted-foreground truncate max-w-[120px] sm:max-w-xs">
+                                            <span className="text-xs text-muted-foreground truncate max-w-[100px] xs:max-w-[120px] sm:max-w-xs">
                                                 {activity.description}
                                             </span>
                                         </div>

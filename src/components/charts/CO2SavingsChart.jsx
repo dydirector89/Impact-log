@@ -9,6 +9,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -18,7 +19,8 @@ ChartJS.register(
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    ChartDataLabels
 );
 
 export default function CO2SavingsChart({ data = [], title = 'CO₂ Savings Over Time' }) {
@@ -50,8 +52,7 @@ export default function CO2SavingsChart({ data = [], title = 'CO₂ Savings Over
                     backgroundColor: 'rgba(16, 185, 129, 0.8)',
                     borderColor: '#10b981',
                     borderWidth: 0,
-                    borderRadius: 8,
-                    borderSkipped: false,
+                    borderRadius: 0,
                     hoverBackgroundColor: '#10b981',
                 },
             ],
@@ -81,6 +82,17 @@ export default function CO2SavingsChart({ data = [], title = 'CO₂ Savings Over
                 callbacks: {
                     label: (context) => `${(context.raw || 0).toFixed(1)} kg CO₂ saved`,
                 },
+            },
+            datalabels: {
+                anchor: 'end',
+                align: 'top',
+                offset: 4,
+                color: isDark ? '#e2e8f0' : '#374151',
+                font: {
+                    size: 12,
+                    weight: 'bold',
+                },
+                formatter: (value) => value > 0 ? `${value.toFixed(0)}` : '',
             },
         },
         scales: {
@@ -126,7 +138,7 @@ export default function CO2SavingsChart({ data = [], title = 'CO₂ Savings Over
                 </div>
             </CardHeader>
             <CardContent>
-                <div className="h-60">
+                <div className="h-48 sm:h-60">
                     {hasData ? (
                         <Bar data={chartData} options={options} />
                     ) : (

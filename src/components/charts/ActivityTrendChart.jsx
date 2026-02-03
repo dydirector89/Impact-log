@@ -135,7 +135,7 @@ export default function ActivityTrendChart({ data, title = 'Activity Trends' }) 
                 </div>
             </CardHeader>
             <CardContent className="pt-2">
-                <div className="h-72">
+                <div className="h-56 sm:h-72">
                     {hasData ? (
                         <Line data={chartData} options={options} />
                     ) : (
